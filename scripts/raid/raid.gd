@@ -17,8 +17,10 @@ func _ready() -> void:
 	if not _validate_ui():
 		return
 	title.text = "Raid (局内) - 占位"
-	hint.text = "后面接：玩家/敌人/掉落/撤离点"
+	hint.text = "WASD移动 / 鼠标瞄准 / 左键射击 / R换弹"
 	back_btn.text = "返回修理铺"
+	_refresh_player_ui()
+	_bind_player_signals()
 
 	back_btn.pressed.connect(func():
 		var main := _get_main()
