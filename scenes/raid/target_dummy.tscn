@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8b8c1yq6rj83"]
+
+[ext_resource type="Texture2D" uid="uid://d2b58sqo2b5ps" path="res://art_placeholder/target_placeholder.svg" id="1_w0a0y"]
+
+[node name="TargetDummy" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_w0a0y")
