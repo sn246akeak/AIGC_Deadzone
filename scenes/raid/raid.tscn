@@ -1,17 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0veadtvgbxi6"]
+[gd_scene load_steps=7 format=3 uid="uid://c0veadtvgbxi6"]
 
 [ext_resource type="Script" uid="uid://dja4bf12qfv4r" path="res://scripts/raid/raid.gd" id="1_ahwxd"]
-[ext_resource type="PackedScene" path="res://scenes/raid/player.tscn" id="2_4qki4"]
-[ext_resource type="PackedScene" path="res://scenes/raid/target_dummy.tscn" id="3_11q5p"]
+[ext_resource type="PackedScene" uid="uid://bkr7lcj4x0f7c" path="res://scenes/raid/player.tscn" id="2_6mqso"]
+[ext_resource type="PackedScene" uid="uid://b8b8c1yq6rj83" path="res://scenes/raid/target_dummy.tscn" id="3_4hdcc"]
+[ext_resource type="Texture2D" uid="uid://cfnbky7m6u3kh" path="res://art_placeholder/ground_placeholder.svg" id="4_m0c1c"]
+[ext_resource type="Texture2D" uid="uid://c3a2okcysvjtj" path="res://art_placeholder/bullet_placeholder.svg" id="5_p1cqa"]
+[ext_resource type="Texture2D" uid="uid://cp1md1w2x76iu" path="res://art_placeholder/muzzle_flash_placeholder.svg" id="6_vy6tb"]
 
 [node name="Raid" type="Node2D"]
 script = ExtResource("1_ahwxd")
 
-[node name="Player" parent="." instance=ExtResource("2_4qki4")]
-position = Vector2(160, 140)
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(512, 320)
+texture = ExtResource("4_m0c1c")
 
-[node name="TargetDummy" parent="." instance=ExtResource("3_11q5p")]
-position = Vector2(460, 200)
+[node name="Player" parent="." instance=ExtResource("2_6mqso")]
+position = Vector2(200, 300)
+
+[node name="TargetDummy" parent="." instance=ExtResource("3_4hdcc")]
+position = Vector2(760, 260)
+
+[node name="Bullet" type="Sprite2D" parent="."]
+position = Vector2(380, 280)
+texture = ExtResource("5_p1cqa")
+
+[node name="MuzzleFlash" type="Sprite2D" parent="."]
+position = Vector2(260, 280)
+texture = ExtResource("6_vy6tb")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -19,6 +34,7 @@ position = Vector2(460, 200)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+self_modulate = Color(1, 1, 1, 0.6)
 grow_horizontal = 2
 grow_vertical = 2
 
