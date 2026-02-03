@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2b10soguy068"]
+
+[ext_resource type="Script" uid="uid://bxpo7luhorr16" path="res://scripts/core/main.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://c361di5k3w6t6" path="res://scripts/core/game_state.gd" id="1_o5qli"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0wfyh")
+
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("1_o5qli")
+metadata/_custom_type_script = "uid://c361di5k3w6t6"
+
+[node name="SceneHost" type="Node" parent="."]
