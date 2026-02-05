@@ -16,6 +16,9 @@ var player_state = PlayerStateScript.new()
 func reset_run_defaults() -> void:
 	if player_state.hp <= 0:
 		player_state.hp = player_state.max_hp
+	if player_state.ammo_in_mag <= 0 and player_state.ammo_reserve <= 0:
+		player_state.ammo_in_mag = player_state.mag_size
+		player_state.ammo_reserve = player_state.mag_size * 3
 
 func add_money(amount: int) -> void:
 	player_state.money += amount
