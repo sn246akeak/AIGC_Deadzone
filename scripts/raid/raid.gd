@@ -2,13 +2,19 @@ extends Node2D
 
 const TITLE_PATH := NodePath("UI/Panel/VBoxContainer/Title")
 const HINT_PATH := NodePath("UI/Panel/VBoxContainer/Hint")
+const HP_LABEL_PATH := NodePath("UI/Panel/VBoxContainer/HpLabel")
+const AMMO_LABEL_PATH := NodePath("UI/Panel/VBoxContainer/AmmoLabel")
 const BACK_BTN_PATH := NodePath("UI/Panel/VBoxContainer/BackBtn")
 const EXTRACT_BTN_PATH := NodePath("UI/Panel/VBoxContainer/ExtractBtn")
+const PLAYER_PATH := NodePath("Player")
 
 @onready var title: Label = get_node_or_null(TITLE_PATH) as Label
 @onready var hint: Label = get_node_or_null(HINT_PATH) as Label
+@onready var hp_label: Label = get_node_or_null(HP_LABEL_PATH) as Label
+@onready var ammo_label: Label = get_node_or_null(AMMO_LABEL_PATH) as Label
 @onready var back_btn: Button = get_node_or_null(BACK_BTN_PATH) as Button
 @onready var extract_btn: Button = get_node_or_null(EXTRACT_BTN_PATH) as Button
+@onready var player: RaidPlayer = get_node_or_null(PLAYER_PATH) as RaidPlayer
 
 const MAIN_NODE_PATH := NodePath("Main")
 const GAME_STATE_PATH := NodePath("Main/GameState")
@@ -42,6 +48,29 @@ func _ready() -> void:
 		main.go_to_base()
 	)
 
+func _refresh_player_ui() -> void:
+	if hp_label == null or ammo_label == null:
+		return
+	var gs := _get_game_state()
+	if gs == null:
+		return
+	var ps := gs.player_state
+	hp_label.text = "HP: %d/%d" % [ps.hp, ps.max_hp]
+	ammo_label.text = "Ammo: %d/%d | Reserve: %d" % [ps.ammo_in_mag, ps.mag_size, ps.ammo_reserve]
+
+func _bind_player_signals() -> void:
+	if player == null:
+		push_warning("Raid player node missing at %s" % PLAYER_PATH)
+		return
+	player.ammo_changed.connect(func(current: int, reserve: int, mag_size: int):
+		if ammo_label != null:
+			ammo_label.text = "Ammo: %d/%d | Reserve: %d" % [current, mag_size, reserve]
+	)
+	player.hp_changed.connect(func(current: int, max_hp: int):
+		if hp_label != null:
+			hp_label.text = "HP: %d/%d" % [current, max_hp]
+	)
+
 func _get_main() -> Node:
 	var main := get_tree().root.get_node_or_null(MAIN_NODE_PATH)
 	if main == null:
@@ -60,6 +89,10 @@ func _validate_ui() -> bool:
 		missing.append("Title")
 	if hint == null:
 		missing.append("Hint")
+	if hp_label == null:
+		missing.append("HpLabel")
+	if ammo_label == null:
+		missing.append("AmmoLabel")
 	if back_btn == null:
 		missing.append("BackBtn")
 	if extract_btn == null:

@@ -32,6 +32,12 @@ layout_mode = 2
 [node name="InvLabel" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
+[node name="HpLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="AmmoLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
 [node name="GoRaidBtn" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
